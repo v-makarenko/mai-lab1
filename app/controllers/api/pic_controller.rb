@@ -1,7 +1,16 @@
 class Api::PicController < ApplicationController
   def get_pic
-    pic, w, h = params[:pic], params[:w],params[:h]
-    send_file Rails.root.join('app', 'assets','images','red.jpg'), type: 'image/jpeg', disposition: 'inline'
+    @pic_id, @w, @h = params[:pic_id].to_i, params[:w].to_i,params[:h].to_i
+    # get current image path
+    @path = Dir[Rails.root.join('app', 'assets','images','*.jpg')][@pic_id]
+    @imageW, @imageH = FastImage.size(@path)
+    @wSize = @imageW/8
+    @hSize = @imageH/8
+
+    @img = Image.read(@path).crop(@w*@wSize, @h*@hSize, @wSize, @hSize)
+    send_data @img, :filename => "1.jpg",
+              :disposition => 'inline',
+              :type => "image/jpeg"
   end
 
   def pic_total
