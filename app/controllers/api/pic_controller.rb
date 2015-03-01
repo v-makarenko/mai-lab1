@@ -14,15 +14,4 @@ class Api::PicController < ApplicationController
               :type => "image/jpeg"
   end
 
-  def pic_total
-    render json: Dir[Rails.root.join('app', 'assets','images','*.jpg')].length
-  end
-
-  def pic_dimensions
-    pic_id = params[:pic_id].to_i
-    @response = Class.new do
-      @w, @h =  FastImage.size(Dir[Rails.root.join('app', 'assets','images','*.jpg')][pic_id])
-    end
-    render json: @response
-  end
 end

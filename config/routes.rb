@@ -3,14 +3,6 @@ Rails.application.routes.draw do
   get 'pic/get_pic'
   end
 
-  namespace :api do
-  get 'pic/pic_total'
-  end
-
-  namespace :api do
-  get 'pic/pic_dimensions'
-  end
-
   get 'main/pic'
 
   # The priority is based upon order of creation: first created -> highest priority.
